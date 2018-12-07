@@ -5,14 +5,14 @@ import Foundation
 /// NOTE: It is currently not possible to use generics with a subclass of NSObject
 /// 	 However, NSKeyedArchiver needs a concrete subclass of NSObject to work correctly
 open class CacheObject: NSObject, NSCoding {
-    let value: AnyObject
-    let expiryDate: Date
+    public let value: AnyObject
+    public let expiryDate: Date
 
     /// Designated initializer.
     ///
     /// - parameter value:      An object that should be cached
     /// - parameter expiryDate: The expiry date of the given value
-    init(value: AnyObject, expiryDate: Date) {
+   	public init(value: AnyObject, expiryDate: Date) {
         self.value = value
         self.expiryDate = expiryDate
     }
@@ -27,7 +27,7 @@ open class CacheObject: NSObject, NSCoding {
 
     /// NSCoding
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         guard let val = aDecoder.decodeObject(forKey: "value"),
               let expiry = aDecoder.decodeObject(forKey: "expiryDate") as? Date else {
                 return nil
@@ -38,7 +38,7 @@ open class CacheObject: NSObject, NSCoding {
         super.init()
     }
 
-    func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(value, forKey: "value")
         aCoder.encode(expiryDate, forKey: "expiryDate")
     }
